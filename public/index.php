@@ -71,7 +71,7 @@ $tasks = getAllTasks();
                     <form method="post" class="task__action task__action--delete">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?= $task['id'] ?>">
-                        <button type="submit" class="task__btn task__btn--delete"></button>
+                        <button type="button" class="task__btn task__btn--delete" data-id="<?= $task['id'] ?>"></button>
                     </form>
                 </div>
             </div>
