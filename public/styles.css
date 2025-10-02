@@ -1,0 +1,153 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Times New Roman", Arial, serif;
+}
+
+button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+/* === HEADER ==== */
+.page-header {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-header__btn, .add-task-form__btn {
+    background-color: #fff;
+}
+
+.page-header__btn.active {
+    background-color: #b6e7ff;
+}
+
+.page-header__title,
+.page-header__nav {
+    text-align: center;
+}
+
+.page-header__title {
+    padding-bottom: 20px;
+    font-size: 65px;
+}
+
+.page-header__btn {
+    width: 300px;
+    height: 60px;
+    font-size: 24px;
+    border: 1px solid gray;
+}
+
+.page-header__btn:hover, .add-task-form__btn:hover {
+    background-color: #b6e7ff;
+}
+
+.page-header__btn:active, .add-task-form__btn:active {
+    background-color: #93dcff;
+}
+
+/* === MAIN ==== */
+.main-content {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.main-content__add-task {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.add-task-form {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.main-content__add-task textarea {
+    width: 800px;
+    height: 101px;
+    resize: none;
+    padding: 15px;
+    border: 1px solid gray;
+    outline: none;
+    font-family: "Times New Roman", serif;
+    font-size: 24px;
+}
+
+.add-task-form__btn {
+    width: 100px;
+    height: 100px;
+    border: 1px solid gray;
+}
+
+/* === TASK ==== */
+.task {
+    display: flex;
+    justify-content: start;
+    margin: 0 50px 20px 50px;
+}
+
+.task[data-status='1'] {
+    opacity: 0.6;
+}
+
+.task__description {
+    width: 800px;
+    min-height: 100px;
+    padding: 15px;
+    border: 1px solid gray;
+    font-size: 24px;
+    background-color: #fff;
+}
+
+.task__actions {
+    margin-left: 5px;
+}
+
+.task__action {
+    margin-bottom: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.task__action:last-child {
+    margin-bottom: 0;
+}
+
+.task__btn {
+    width: 50px;
+    height: 50px;
+}
+
+.task__btn--toggle {
+    background-color: #fff;
+    border: 2px solid gray;
+}
+
+.task__btn--toggle:active {
+    border: 2px solid black;
+}
+
+.task__btn--delete {
+    background: url('/src/assets/images/trash.svg') center/70% no-repeat #ffa4a4;
+}
+
+.task__btn--delete:hover {
+    background-color: #ff7c7c;
+}
+
+.task__btn--delete:active {
+    background-color: #ff6c6c;
+}
