@@ -29,8 +29,21 @@ filtersButtons.forEach(button => {
         applyFilter()
     });
 });
-
 document.querySelector('#filters button[data-filter="all"]').classList.add('active');
+
+function sendAction(action, params = {}) {
+    const body = new URLSearchParams({action, ...params}).toString()
+
+    return fetch('/public/index.php', {
+        method: "POST",
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body
+    })
+        .then(response => response.json())
+}
 
 /* === ADD TASK === */
 const addButton = document.querySelector('.add-task-form__btn')
@@ -39,18 +52,7 @@ addButton.addEventListener('click', () => {
     const textarea = document.querySelector('.add-task-form textarea')
     const title = textarea.value.trim()
 
-    fetch('/public/addTask.php', {
-        method: "POST",
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded'
-        },
-        body: `title=${encodeURIComponent(title)}`
-    })
-        .then(response => response.text())
-        .then(text => {
-            return JSON.parse(text)
-        })
-        .then(data => {
+    sendAction('create', {title}).then(data => {
             if (data.success) {
                 const tasksList = document.querySelector('.main-content__tasks-list');
 
@@ -67,11 +69,11 @@ addButton.addEventListener('click', () => {
                         </form>
                         <form class="task__action task__action--delete">
                             <input type="hidden" name="action" value="delete">
-                            <button type="button" class="task__btn task__btn--delete"></button>
+                            <button type="button" class="task__btn task__btn--delete" data-id="${data.id}"></button>
                         </form>
                     </div>
                 </div>
-            `;
+            `
 
                 tasksList.insertAdjacentHTML('beforeend', taskHTML);
                 textarea.value = '';
@@ -80,77 +82,51 @@ addButton.addEventListener('click', () => {
             } else {
                 alert('Ошибка: ' + data.error)
             }
-        })
-        .catch(err => console.error('Ошибка:', err));
+        }
+    )
 })
-
 /* === TOGGLE=== */
 const tasksList = document.querySelector('.main-content__tasks-list')
 
 tasksList.addEventListener('click', (event) => {
     const btn = event.target.closest('.task__btn--toggle')
     if (!btn) return
+
     const task = btn.closest('.task')
     const id = btn.dataset.id
-    const isCompleted = task.dataset.status === '1'
-    const newStatus = isCompleted ? '0' : '1'
 
-    fetch('/public/index.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: 'action=toggle&id=${encodeURIComponent(id)}'
-    })
-        .then(response => response.text())
-        .then(text => {
-                return JSON.parse(text)
-            }
-        )
-        .then(data => {
-            if (data.success) {
-                task.dataset.status = newStatus
+    sendAction('toggle', {id}).then(data => {
+        if (data.success) {
+            const isCompleted = task.dataset.status === '1'
+            const newStatus = task.dataset.status = isCompleted ? '0' : '1'
 
-                if (newStatus === '1') {
-                    btn.innerHTML = '<img src="/src/assets/images/check.svg" alt="Выполнено">';
-                    task.classList.add('completed')
-                } else {
-                    btn.innerHTML = ''
-                    task.classList.remove('completed')
-                }
-
-                applyFilter()
+            if (newStatus === '1') {
+                btn.innerHTML = '<img src="/src/assets/images/check.svg" alt="Выполнено">'
             } else {
-                alert('Ошибка toggle:' + data.error)
+                btn.innerHTML = ''
             }
-        })
-        .catch(err => console.error('error:', err))
+        }
+
+        applyFilter()
+    })
 })
+
 /* === DElETE === */
 tasksList.addEventListener('click', (event) => {
-    const deleteBtn = event.target.closest('.task__btn--delete')
-    if (!deleteBtn) return
+    const btn = event.target.closest('.task__btn--delete')
+    if (!btn) return
 
-    const task = deleteBtn.closest('.task')
-    const id = deleteBtn.dataset.id
+    const task = btn.closest('.task')
+    const id = btn.dataset.id
 
-    fetch('/public/index.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: `action=delete&id=${encodeURIComponent(id)}`
+    sendAction('delete', {id}).then(data => {
+        if (data.success) {
+            task.remove()
+        } else {
+            alert('Ошибка удаления:' + data.error)
+        }
+
+        applyFilter()
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                task.remove()
-            } else {
-                alert("Ошибка удаления:" + data.error);
-            }
-            applyFilter()
-        })
-        .catch(err => console.error('Ошибка:', err));
+        .catch(err => console.error('Ошибка:', err))
 })

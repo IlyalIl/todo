@@ -9,8 +9,8 @@ function handleAction(string $action, ?string $id = null, ?string $title = null)
     switch ($action) {
         case 'create':
             if (notEmpty($title)) {
-                createTask($title);
-                return ['success' => true, 'id' => (int)$id];
+                $newId = createTask($title);
+                return ['success' => true, 'id' => $newId, 'title' => $title];
             }
             return ['success' => false, 'err' => 'ID is empty'];
 
