@@ -57,23 +57,21 @@ addButton.addEventListener('click', () => {
                 const tasksList = document.querySelector('.main-content__tasks-list');
 
                 const taskHTML = `
-                <div class="task" data-status="0">
+                <div class="task" data-status="0" data-id="${data.id}">
                     <div class="task__description">
                         <p>${data.title}</p>
                     </div>
                     <div class="task__actions">
                         <form class="task__action task__action--toggle">
                             <input type="hidden" name="action" value="toggle">
-                            <button type="button" class="task__btn task__btn--toggle" data-id="${data.id}">
-                            </button>
+                            <button type="button" class="task__btn task__btn--toggle"></button>
                         </form>
                         <form class="task__action task__action--delete">
                             <input type="hidden" name="action" value="delete">
-                            <button type="button" class="task__btn task__btn--delete" data-id="${data.id}"></button>
+                            <button type="button" class="task__btn task__btn--delete"></button>
                         </form>
                     </div>
-                </div>
-            `
+                </div>`
 
                 tasksList.insertAdjacentHTML('beforeend', taskHTML);
                 textarea.value = '';
@@ -93,7 +91,7 @@ tasksList.addEventListener('click', (event) => {
     if (!btn) return
 
     const task = btn.closest('.task')
-    const id = btn.dataset.id
+    const id = task.dataset.id
 
     sendAction('toggle', {id}).then(data => {
         if (data.success) {
@@ -117,7 +115,7 @@ tasksList.addEventListener('click', (event) => {
     if (!btn) return
 
     const task = btn.closest('.task')
-    const id = btn.dataset.id
+    const id = task.dataset.id
 
     sendAction('delete', {id}).then(data => {
         if (data.success) {

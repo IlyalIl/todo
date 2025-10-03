@@ -54,7 +54,7 @@ $tasks = getAllTasks();
     </div>
     <div class="main-content__tasks-list">
         <?php foreach ($tasks as $task): ?>
-            <div class="task" data-status="<?= $task['status'] ?>">
+            <div class="task" data-status="<?= $task['status'] ?>" data-id="<?= $task['id'] ?>">
                 <div class="task__description">
                     <p><?= htmlspecialchars($task['title']) ?></p>
                 </div>
@@ -62,7 +62,7 @@ $tasks = getAllTasks();
                     <form method="post" class="task__action task__action--toggle">
                         <input type="hidden" name="action" value="toggle">
                         <input type="hidden" name="id" value="<?= $task['id'] ?>">
-                        <button type="button" class="task__btn task__btn--toggle" data-id="<?= $task['id'] ?>">
+                        <button type="button" class="task__btn task__btn--toggle">
                             <?php if ($task['status'] === 1): ?>
                                 <img src="/src/assets/images/check.svg" alt="Выполнено">
                             <?php endif ?>
@@ -71,7 +71,7 @@ $tasks = getAllTasks();
                     <form method="post" class="task__action task__action--delete">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?= $task['id'] ?>">
-                        <button type="button" class="task__btn task__btn--delete" data-id="<?= $task['id'] ?>"></button>
+                        <button type="button" class="task__btn task__btn--delete"></button>
                     </form>
                 </div>
             </div>
