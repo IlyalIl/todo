@@ -83,13 +83,12 @@ button {
 
 .main-content__add-task {
     display: flex;
-    justify-content: center;
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .add-task-form {
     display: flex;
-    justify-content: flex-end;
     gap: 7px;
 }
 
@@ -113,8 +112,7 @@ button {
 /* === TASK ==== */
 .task {
     display: flex;
-    justify-content: start;
-    margin: 0 50px 20px 50px;
+    margin: 0 0 20px 20px;
 }
 
 .task[data-status='1'] {
@@ -122,7 +120,7 @@ button {
 }
 
 .task__description {
-    width: 800px;
+    width: 853px;
     min-height: 100px;
     padding: 15px;
     border: 1px solid gray;
