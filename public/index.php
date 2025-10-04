@@ -39,9 +39,13 @@ $tasks = getAllTasks();
         СПИСОК ДЕЛ
     </h1>
     <nav class="page-header__nav" id="filters">
-        <button class="page-header__btn page-header__btn-all" data-filter="all">ВСЕ</button>
-        <button class="page-header__btn page-header__btn-active" data-filter="completed">ВЫПОЛНЕННЫЕ</button>
-        <button class="page-header__btn page-header__btn-done" data-filter="active">АКТИВНЫЕ</button>
+        <div class="page-header__btn-top">
+            <button class="page-header__btn page-header__btn-all" data-filter="all">ВСЕ</button>
+            <button class="page-header__btn page-header__btn-active" data-filter="active">АКТИВНЫЕ</button>
+        </div>
+        <div class="page-header__btn-bottom">
+            <button class="page-header__btn page-header__btn-done" data-filter="completed">ВЫПОЛНЕННЫЕ</button>
+        </div>
     </nav>
 </header>
 <main class="main-content">
