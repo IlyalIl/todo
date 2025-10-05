@@ -3,7 +3,9 @@ const filtersButtons = document.querySelectorAll('#filters button');
 let currentFilter = 'all';
 
 function applyFilter() {
-    document.querySelectorAll('.task').forEach(task => {
+    const tasks = Array.from(document.querySelectorAll('.task'))
+
+    tasks.forEach(task => {
         const status = task.dataset.status;
 
         if (currentFilter === 'all') {
@@ -15,8 +17,20 @@ function applyFilter() {
         } else {
             task.style.display = '';
         }
-    });
+    })
+
+    if (currentFilter === 'all') {
+        const taskContainer = document.querySelector('.main-content__tasks-list')
+
+        tasks
+            .sort((a,b) => a.dataset.status - b.dataset.status)
+            .forEach(task => taskContainer.appendChild(task))
+    }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyFilter(); // сортировка + фильтр при первой загрузке
+});
 
 filtersButtons.forEach(button => {
     button.addEventListener('click', () => {
