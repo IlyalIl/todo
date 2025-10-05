@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    header('Location: /public/');
+    header('Location: /');
     exit;
 }
 
@@ -29,9 +29,9 @@ $tasks = getAllTasks();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ToDo</title>
-    <link rel="stylesheet" href="/public/reset.css">
-    <link rel="stylesheet" href="/public/styles.css">
-    <script src="/public/main.js" defer></script>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
 </head>
 <body>
 <header class="page-header">

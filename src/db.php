@@ -4,8 +4,8 @@ function getPDO()
 {
     $dsn = "mysql:host=localhost;dbname=todo_db;charset=utf8mb4";
 
-    $user = "root";
-    $password = "Qwerty145235!";
+    $user = "ilusha";
+    $password = ".!.Dth.!.";
 
     $pdo = new PDO($dsn, $user, $password);
 

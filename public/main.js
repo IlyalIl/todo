@@ -34,7 +34,7 @@ document.querySelector('#filters button[data-filter="all"]').classList.add('acti
 function sendAction(action, params = {}) {
     const body = new URLSearchParams({action, ...params}).toString()
 
-    return fetch('/public/index.php', {
+    return fetch('index.php', {
         method: "POST",
         headers: {
             'Content-type': 'application/x-www-form-urlencoded',
